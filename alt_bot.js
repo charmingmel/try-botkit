@@ -13,29 +13,28 @@ if (!token) {
 
 var Botkit = require('./lib/Botkit');
 var os = require('os');
-var cleverbot = require('cleverbot.io');
 var controller = Botkit.slackbot({debug: true});
-
-cleverbot = new cleverbot(apiUser, apiKey);
-cleverbot.setNick("Bob");
-cleverbot.create(function(err, session) {
-  if (err) {
-    console.log('cleverbot create fail.');
-  } else {
-    console.log('cleverbot create success.');
-  }
-});
+var movies = require('./data/mock');
 
 var altbot = controller.spawn({token: token}).startRTM();
 
-controller.hears('', 'direct_message,direct_mention,mention', function(bot, message) {
-  var msg = message.text;
+controller.hears('movie', 'direct_message,direct_mention,mention', function(bot, message) {
+  var rand = Math.floor(Math.random() * 6) + 1;
+  bot.reply(message, 'Do you know ' + movies[rand].title + ' made in ' + movies[rand].year + ' ?');
+});
 
-  cleverbot.ask(msg, function(err, response) {
-    if (!err) {
-      bot.reply(message, response);
-    } else {
-      console.log('cleverbot err: ' + err);
-    }
-  });
+controller.hears('yes', 'direct_message,direct_mention,mention', function(bot, message) {
+  bot.reply(message, 'That\'s cool');
+});
+
+controller.hears('no', 'direct_message,direct_mention,mention', function(bot, message) {
+  bot.reply(message, 'Oh dear! You should go see it');
+});
+
+controller.hears('ok', 'direct_message,direct_mention,mention', function(bot, message) {
+  bot.reply(message, ':thumbsup:');
+});
+
+controller.hears('thanks', 'direct_message,direct_mention,mention', function(bot, message) {
+  bot.reply(message, 'My pleasure!');
 });
