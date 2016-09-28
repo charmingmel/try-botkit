@@ -1,5 +1,5 @@
 {
-  "name": "botkit",
+  "name": "botkit-tutorial",
   "version": "0.2.2",
   "description": "Building blocks for Building Bots",
   "main": "lib/Botkit.js",
@@ -7,7 +7,9 @@
     "async": "^2.0.0-rc.5",
     "back": "^1.0.1",
     "body-parser": "^1.14.2",
+    "cleverbot.io": "^1.0.4",
     "command-line-args": "^3.0.0",
+    "dotenv": "^2.0.0",
     "express": "^4.13.3",
     "https-proxy-agent": "^1.0.0",
     "jfs": "^0.2.6",
@@ -21,10 +23,12 @@
   "devDependencies": {
     "jscs": "^2.7.0",
     "mocha": "^2.4.5",
+    "nodemon": "^1.10.2",
     "should": "^8.0.2",
     "winston": "^2.1.1"
   },
   "scripts": {
+    "start": "nodemon alt_bot.js",
     "pretest": "jscs ./lib/",
     "test": "mocha tests/*.js"
   },
